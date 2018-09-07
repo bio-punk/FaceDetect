@@ -2,7 +2,12 @@ Run the code like this:
 
 *python face_detect_cv3.py test.png*
 
-If you want to understand how the code works, the details are here:
+*python live.py*
 
-https://realpython.com/blog/python/face-recognition-with-python/
-
+environment：
+  pip install opencv-python==3.4.2.17
+  
+  *(maybe you need to install cmake and boost before you install dlib)
+  pip install cmake==3.12.0
+  pip install boost==0.1*
+  pip install dlib==18.17.100 
