@@ -53,7 +53,11 @@ cnt = GAP
 time0 = time.time()
 while(1):
 	ret, frame = cap.read()
-	cv2.putText(frame, "FPS: {}".format(1.0/(time.time()-time0)), (100, 50),
+	time1 = time.time() - time0
+	if time1 <= 0: time1 = 1.0 / 30.0
+	cv2.putText(frame, "FPS: {}".format(1/time1), (100, 50),
+		cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+	cv2.putText(frame, "Raw FPS: {}".format(fps), (100, 80),
 		cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
 	time0 = time.time()
 	if GAP==cnt:
