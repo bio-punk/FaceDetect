@@ -32,19 +32,23 @@ import os
 import dlib
 import glob
 
-if len(sys.argv) != 5:
-    print(
-        "Call this program like this:\n"
-        "   ./face_clustering.py shape_predictor_5_face_landmarks.dat dlib_face_recognition_resnet_model_v1.dat ../examples/faces output_folder\n"
-        "You can download a trained facial shape predictor and recognition model from:\n"
-        "    http://dlib.net/files/shape_predictor_5_face_landmarks.dat.bz2\n"
-        "    http://dlib.net/files/dlib_face_recognition_resnet_model_v1.dat.bz2")
-    exit()
+# if len(sys.argv) != 5:
+#     print(
+#         "Call this program like this:\n"
+#         "   ./face_clustering.py shape_predictor_5_face_landmarks.dat dlib_face_recognition_resnet_model_v1.dat ../examples/faces output_folder\n"
+#         "You can download a trained facial shape predictor and recognition model from:\n"
+#         "    http://dlib.net/files/shape_predictor_5_face_landmarks.dat.bz2\n"
+#         "    http://dlib.net/files/dlib_face_recognition_resnet_model_v1.dat.bz2")
+#     exit()
 
-predictor_path = sys.argv[1]
-face_rec_model_path = sys.argv[2]
-faces_folder_path = sys.argv[3]
-output_folder_path = sys.argv[4]
+# predictor_path = sys.argv[1]
+predictor_path = 'shape_predictor_5_face_landmarks.dat'
+# face_rec_model_path = sys.argv[2]
+face_rec_model_path = 'dlib_face_recognition_resnet_model_v1.dat'
+# faces_folder_path = sys.argv[3]
+faces_folder_path = '../demoin'
+# output_folder_path = sys.argv[4]
+output_folder_path = '../demoout'
 
 # Load all the models we need: a detector to find the faces, a shape predictor
 # to find face landmarks so we can precisely localize the face, and finally the

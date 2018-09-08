@@ -216,3 +216,4 @@ pip-log.txt
 /webFaceD/mmod_human_face_detector.dat
 /facechange/shape_predictor_68_face_landmarks.dat
 /webFaceD_withoutDlib19/shape_predictor_5_face_landmarks.dat
+/webFaceD_withoutDlib19/dlib_face_recognition_resnet_model_v1.dat
