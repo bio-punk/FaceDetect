@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import cv2  
-# import matplotlib.pyplot as plot
 import dlib
 import time
-import numpy
 
 detector=dlib.get_frontal_face_detector()
 
@@ -46,7 +44,7 @@ mask = cv2.imread("facemask.png", cv2.IMREAD_UNCHANGED)
 
 GAP = 2
 ZOOM = 1.0
-WIDTH = 480
+WIDTH = 240
 HEIGHT = 320
 cap = cv2.VideoCapture(0)
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, WIDTH)
@@ -69,15 +67,16 @@ while(1):
 		y=face["y"]
 		w=face["width"]
 		h=face["height"]
-		if (x+w) > WIDTH: w = WIDTH - x
-		if (y+h) > HEIGHT: h = HEIGHT - y
 		if x < 0: x = 0
 		if y < 0: y = 0
+		if (x+w) > WIDTH: w = WIDTH - x - 1 
+		if (y+h) > HEIGHT: h = HEIGHT - y - 1
 		smileface = cv2.resize(mask, (w, h), interpolation=cv2.INTER_AREA)
 		for ii in range(y,y+h):
 			for kk in range(x,x+w):
 				if smileface[ii - y, kk - x][3] != 0:
 					frame[ii,kk]=smileface[ii - y, kk - x ][0:3]
+
 		i = i + 1
 	cv2.imshow("capture", frame)
 	if cv2.waitKey(1) & 0xFF == ord('q'):
