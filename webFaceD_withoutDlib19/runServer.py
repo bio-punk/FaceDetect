@@ -27,9 +27,9 @@ __  _  __  ____ \_ |__ \_   _____/_____     ____   ____  \______ \
 if __name__ == '__main__':
 	HOST = environ.get('SERVER_HOST', 'localhost')
 	try:
-		PORT = int(environ.get('SERVER_PORT', '5555'))
+		PORT = int(environ.get('SERVER_PORT', '65531'))
 	except ValueError:
-		PORT = 5555
+		PORT = 65531
 
 	#多线程模式
 	#app.run(HOST, PORT, threaded=True)
