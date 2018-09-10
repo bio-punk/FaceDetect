@@ -31,7 +31,7 @@ def draw(rects, image_name='test.png', windowName='window0'):
 	cv2.imshow(windowName, image)
 
 timebegin = time.time()
-url = 'http://localhost:5555/api/face/detect/'
+url = 'http://localhost:65531/api/face/detect/'
 
 with open('test.png', 'rb') as f:
 	_byte = f.read()
