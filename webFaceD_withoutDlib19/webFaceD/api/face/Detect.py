@@ -57,7 +57,7 @@ def post_detect():
 	imageB64Str = request.form['image_base64']
 	image = base64_2RGB(imageB64Str)
 
-	faces = std_face_finder(image, 1.57)
+	faces = std_face_finder(image, 4.0)
 	
 	if len(faces) < 1:
 		rt = """{

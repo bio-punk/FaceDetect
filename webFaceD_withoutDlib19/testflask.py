@@ -57,7 +57,7 @@ else:
 print ("_____________________________")
 
 timebegin = time.time()
-url = 'http://localhost:5555/api/face/detect/'
+url = 'http://localhost:65531/api/face/detect/'
 
 with open('test2.png', 'rb') as f:
 	_byte = f.read()

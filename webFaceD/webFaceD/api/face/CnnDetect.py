@@ -66,6 +66,7 @@ def post_cnndetect():
 			"ok":False,
 			"face":[]
 		}"""
+		print("hehe")
 		return jsonify(rt)
 
 	rt = { 

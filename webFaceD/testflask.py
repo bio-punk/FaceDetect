@@ -12,8 +12,8 @@ import numpy as np
 
 # import urllib2
 
-def draw(rects, windowName='window0'):
-	image = cv2.imread('test.png', cv2.IMREAD_COLOR)
+def draw(rects, image_name='test.png', windowName='window0'):
+	image = cv2.imread(image_name, cv2.IMREAD_COLOR)
 	face_num = 0
 	for (i, rect) in enumerate(rects):
 	    face_num = face_num + 1
@@ -53,13 +53,13 @@ print ("totaltime:{}".format(timeend-timebegin))
 if jsonData.get("ok")==False:
 	print("no face")
 else:
-	draw(jsonData.get("face"), windowName = "detect")
+	draw(jsonData.get("face"), image_name='test.png', windowName = "detect_homorua")
 print ("_____________________________")
 
 timebegin = time.time()
 url = 'http://localhost:65530/api/face/cnndetect/'
 
-with open('test.png', 'rb') as f:
+with open('test2.png', 'rb') as f:
 	_byte = f.read()
 
 image_str = base64.b64encode(_byte)
@@ -79,7 +79,7 @@ print ("totaltime:{}".format(timeend-timebegin))
 if jsonData.get("ok")==False:
 	print("no face")
 else:
-	draw(jsonData.get("face"), windowName = "cnndetect")
+	draw(jsonData.get("face"), image_name='test2.png', windowName = "detect_4p")
 print ("_____________________________")
 
 cv2.waitKey(0)
