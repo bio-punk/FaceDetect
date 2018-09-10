@@ -40,7 +40,11 @@ def fast_face_finder(image, zoom):
 		faces.append(face)
 	return faces
 
-mask = cv2.imread("facemask.png", cv2.IMREAD_UNCHANGED)
+smileface = cv2.imread("facemask.png", cv2.IMREAD_UNCHANGED)
+mR, mG, mB, mA = cv2.split(smileface)
+RGBsmileface = cv2.merge((mR,mG,mB))
+mABn =  cv2.bitwise_not(mA)
+cv2.imshow("mA", mA)
 
 GAP = 2
 ZOOM = 1.0
@@ -71,11 +75,29 @@ while(1):
 		if y < 0: y = 0
 		if (x+w) > WIDTH: w = WIDTH - x - 1 
 		if (y+h) > HEIGHT: h = HEIGHT - y - 1
-		smileface = cv2.resize(mask, (w, h), interpolation=cv2.INTER_AREA)
-		for ii in range(y,y+h):
-			for kk in range(x,x+w):
-				if smileface[ii - y, kk - x][3] != 0:
-					frame[ii,kk]=smileface[ii - y, kk - x ][0:3]
+		
+		frameROI = frame[y:y+h,x:x+w]
+		frameROI = frameROI.astype(float)
+
+		resized_smileface = cv2.resize(RGBsmileface, (w, h), interpolation=cv2.INTER_AREA)
+		resized_mABn = cv2.resize(mABn, (w, h), interpolation=cv2.INTER_AREA)
+		resized_mA = cv2.resize(mA, (w, h), interpolation=cv2.INTER_AREA)
+		resized_mABn = cv2.merge((resized_mABn,resized_mABn,resized_mABn))
+		
+		alpha = resized_mABn.astype(float)/255
+		bg = cv2.multiply(alpha, frameROI)
+		bg = bg.astype('uint8')
+		
+		new_smileface = cv2.bitwise_and(resized_smileface,resized_smileface,mask = mA)
+
+		frame = new_smileface
+
+		# smileface = cv2.resize(mask, (w, h), interpolation=cv2.INTER_AREA)
+		# for ii in range(y,y+h):
+		# 	for kk in range(x,x+w):
+		# 		if smileface[ii - y, kk - x][3] != 0:
+		# 			frame[ii,kk]=smileface[ii - y, kk - x ][0:3]
+
 
 		i = i + 1
 	cv2.imshow("capture", frame)
