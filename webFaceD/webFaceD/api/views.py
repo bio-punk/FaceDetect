@@ -9,4 +9,4 @@ def hello_api():
 			"/api/face"
 		]
 	}
-	return jsonify(rt)
+	return (rt)

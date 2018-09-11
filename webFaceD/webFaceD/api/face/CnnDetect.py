@@ -51,12 +51,12 @@ def get_cnndetect():
 		}
 	}
 
-	return jsonify(rt)
+	return (rt)
 
 @app.route('/api/face/cnndetect/', methods=['POST'])
 def post_cnndetect():
-	imageB64Str = request.form['image_base64']
-
+	# imageB64Str = request.form['image_base64']
+	imageB64Str = str(request.data.get("image_base64"))
 	image = base64_2RGB(imageB64Str)
 
 	faces = cnn_face_finder(image, 1.0)

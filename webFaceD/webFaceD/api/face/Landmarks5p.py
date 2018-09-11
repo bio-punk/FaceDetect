@@ -80,11 +80,13 @@ def get_landmarks5p():
 		}
 	}
 
-	return jsonify(rt)
+	return (rt)
 
 @app.route('/api/face/landmarks5p/', methods=['POST'])
 def post_landmarks5p():
-	imageB64Str = request.form['image_base64']
+	# imageB64Str = request.form['image_base64']
+	imageB64Str = str(request.data.get("image_base64"))
+
 	image = base64_2RGB(imageB64Str)
 
 	faces = face_shape_dete(image, 10.0)

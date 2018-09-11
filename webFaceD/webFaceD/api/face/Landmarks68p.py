@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from webFaceD import app
 from flask import jsonify
 from flask import request
@@ -38,6 +40,9 @@ def face_shape_68dete(image, zoom):
 
 @app.route('/api/face/landmarks68p/', methods=['GET'])
 def get_landmarks68p():
+	"""
+	人脸68个点标记
+	"""
 	rt = {
 		"what you post":
 		{
@@ -79,11 +84,13 @@ def get_landmarks68p():
 		}
 	}
 
-	return jsonify(rt)
+	return (rt)
 
 @app.route('/api/face/landmarks68p/', methods=['POST'])
 def post_landmarks68p():
-	imageB64Str = request.form['image_base64']
+	# imageB64Str = request.form["image_base64"]
+	imageB64Str = str(request.data.get("image_base64"))
+	# print(imageB64Str)
 	image = base64_2RGB(imageB64Str)
 
 	faces = face_shape_68dete(image, 10.0)

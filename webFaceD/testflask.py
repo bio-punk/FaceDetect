@@ -121,6 +121,9 @@ with open('test2.png', 'rb') as f:
 
 image_str = base64.b64encode(_byte)
 body = {"image_base64": image_str} 
+f=open("o.txt",'w')
+f.write(str(image_str))
+f.close()
 
 time1=time.time()
 rt = requests.post(url, data=body)

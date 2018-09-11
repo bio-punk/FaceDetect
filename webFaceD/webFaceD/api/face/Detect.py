@@ -50,11 +50,12 @@ def get_detect():
 		}
 	}
 
-	return jsonify(rt)
+	return (rt)
 
 @app.route('/api/face/detect/', methods=['POST'])
 def post_detect():
-	imageB64Str = request.form['image_base64']
+	# imageB64Str = request.form['image_base64']
+	imageB64Str = str(request.data.get("image_base64"))
 	image = base64_2RGB(imageB64Str)
 
 	faces = std_face_finder(image, 1.0)

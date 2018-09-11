@@ -14,4 +14,4 @@ def home():
         "title": "home page",
         "/api": ""
     }
-    return jsonify(rt)
+    return (rt)

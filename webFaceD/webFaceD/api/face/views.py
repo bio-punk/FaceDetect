@@ -2,6 +2,7 @@ from webFaceD import app
 from flask import jsonify
 
 @app.route('/api/face')
+@app.route('/api/face/')
 def face_api():
 	rt = {
 		"app 0":[
@@ -21,4 +22,4 @@ def face_api():
 			"/api/face/landmarks68p"
 		]
 	}
-	return jsonify(rt)
+	return (rt)
