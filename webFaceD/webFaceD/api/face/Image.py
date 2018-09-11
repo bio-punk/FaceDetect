@@ -20,9 +20,3 @@ def rect_to_bb(rect):
 	w = rect.right() - x 
 	h = rect.bottom() - y 
 	return (x, y, w, h)
-
-def shape_to_np(shape, pointNumber=68, dtype="int"):
-    coords = np.zeros((pointNumber, 2), dtype=dtype)
-    for i in range(0, pointNumber):
-        coords[i] = (shape.part(i).x, shape.part(i).y)
-    return coords

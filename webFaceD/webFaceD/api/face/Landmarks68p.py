@@ -9,7 +9,6 @@ import cv2
 from .Image import base64_2RGB
 from .Image import resize_width
 from .Image import rect_to_bb
-from .Image import shape_to_np
 
 def face_shape_68dete(image, zoom):
 	raw_size = image.shape
