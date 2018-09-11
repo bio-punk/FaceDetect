@@ -11,6 +11,14 @@ def face_api():
 		"app 1":[
 			"cnndetect",
 			"/api/face/cnndetect"
+		],
+		"app 2":[
+			"landmarks5p",
+			"/api/face/landmarks5p"
+		],
+		"app 3":[
+			"landmarks68p",
+			"/api/face/landmarks68p"
 		]
 	}
 	return jsonify(rt)

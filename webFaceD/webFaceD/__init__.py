@@ -10,7 +10,9 @@ import webFaceD.views
 import cv2
 import dlib
 
-detector=dlib.get_frontal_face_detector()
+detector = dlib.get_frontal_face_detector()
 cnn_detector = dlib.cnn_face_detection_model_v1("mmod_human_face_detector.dat")
+shape_predictor_5p = dlib.shape_predictor("shape_predictor_5_face_landmarks.dat")
+shape_predictor_68p = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 
 import webFaceD.api

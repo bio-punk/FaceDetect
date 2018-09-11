@@ -82,6 +82,66 @@ else:
 	draw(jsonData.get("face"), image_name='test2.png', windowName = "detect_4p")
 print ("_____________________________")
 
+timebegin = time.time()
+url = 'http://localhost:65530/api/face/landmarks5p/'
+
+with open('test.png', 'rb') as f:
+	_byte = f.read()
+
+image_str = base64.b64encode(_byte)
+body = {"image_base64": image_str} 
+
+time1=time.time()
+rt = requests.post(url, data=body)
+time2=time.time()
+
+print (rt.text)
+timeend= time.time()
+jsonData = json.loads(rt.text)
+image = cv2.imread("test.png")
+faces = jsonData.get("face")
+for face in faces:
+	shape = face["face_shape_list"]
+	for point in shape:
+		x = point['x']
+		y = point['y']
+		cv2.circle(image, (x,y), 2, (0, 0, 255), -1)
+# print(faces)
+print ("requests time:{}".format(time2-time1))
+print ("totaltime:{}".format(timeend-timebegin))
+cv2.imshow("5p", image)
+
+print ("_____________________________")
+
+timebegin = time.time()
+url = 'http://localhost:65530/api/face/landmarks68p/'
+
+with open('test2.png', 'rb') as f:
+	_byte = f.read()
+
+image_str = base64.b64encode(_byte)
+body = {"image_base64": image_str} 
+
+time1=time.time()
+rt = requests.post(url, data=body)
+time2=time.time()
+
+print (rt.text)
+timeend= time.time()
+jsonData = json.loads(rt.text)
+image = cv2.imread("test2.png")
+faces = jsonData.get("face")
+for face in faces:
+	shape = face["face_shape_list"]
+	for point in shape:
+		cv2.circle(image, (point["x"], point["y"]), 2, (0, 0, 255), -1)
+# print(faces)
+print ("requests time:{}".format(time2-time1))
+print ("totaltime:{}".format(timeend-timebegin))
+cv2.imshow("68p", image)
+
+print ("_____________________________")
+
 cv2.waitKey(0)
 
 # GAP = 30
