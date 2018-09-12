@@ -145,6 +145,32 @@ cv2.imshow("68p", image)
 
 print ("_____________________________")
 
+
+
+timebegin = time.time()
+url = 'http://localhost:65530/api/face/distance/'
+
+with open('bird0.jpg', 'rb') as f:
+	_byte1 = f.read()
+
+image_str1 = base64.b64encode(_byte1)
+
+with open('bird1.jpg', 'rb') as f:
+	_byte2 = f.read()
+
+image_str2 = base64.b64encode(_byte2)
+
+body = {"image1_base64": image_str1,"image2_base64":image_str2} 
+
+time1=time.time()
+rt = requests.post(url, data=body)
+time2=time.time()
+
+print (rt.text)
+
+print ("_____________________________")
+
+
 cv2.waitKey(0)
 
 # GAP = 30

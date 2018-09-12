@@ -58,14 +58,14 @@ def post_detect():
 	imageB64Str = str(request.data.get("image_base64"))
 	image = base64_2RGB(imageB64Str)
 
-	faces = std_face_finder(image, 1.0)
+	faces = std_face_finder(image, 4.0)
 	
 	if len(faces) < 1:
-		rt = """{
+		rt = {
 			"ok":False,
 			"face":[]
-		}"""
-		return rt,404
+		}
+		return jsonify(rt)
 
 	rt = { 
 		"ok":True,

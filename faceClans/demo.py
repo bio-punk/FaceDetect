@@ -79,7 +79,6 @@ for f in glob.glob(os.path.join(faces_folder_path, "*.jpg")):
         # Compute the 128D vector that describes the face in img identified by
         # shape.  
         face_descriptor = facerec.compute_face_descriptor(img, shape)
-        print(len(face_descriptor))
         descriptors.append(face_descriptor)
         images.append((img, shape))
 

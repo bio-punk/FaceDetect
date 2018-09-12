@@ -20,6 +20,10 @@ def face_api():
 		"app 3":[
 			"landmarks68p",
 			"/api/face/landmarks68p"
+		],
+		"app 5":[
+			"distance",
+			"/api/face/distance"
 		]
 	}
 	return (rt)
