@@ -15,3 +15,5 @@ environment：
   *pip install boost==0.1*
   
   pip install dlib==18.17.100 
+
+DOC_PATH : [WebFaceD doc](https://www.kancloud.cn/cory/webfaced_doc)
