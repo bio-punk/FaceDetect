@@ -96,11 +96,11 @@ def post_landmarks68p():
 	faces = face_shape_68dete(image, 10.0)
 	
 	if len(faces) < 1:
-		rt = """{
+		rt = {
 			"ok":False,
 			"face":[]
-		}"""
-		return rt,404
+		}
+		return jsonify(rt)
 
 	rt = { 
 		"ok":True,

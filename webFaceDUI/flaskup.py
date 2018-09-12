@@ -21,7 +21,10 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg', 'JPG', 'PNG', 'gif', 'GIF'])
 
 @app.route('/')
 def home():
-	rt = { "path":"/distance" }
+	rt = { 
+		"path 0":"/distance",
+		"path 1":"/detect"
+	}
 	return jsonify(rt)
 
 @app.route('/distance')
@@ -31,6 +34,58 @@ def upload_test():
 @app.route('/detect')
 def detect():
 	return render_template('detect.html')
+
+@app.route('/landmarks68p')
+def landmarks68p():
+	return render_template('landmarks68p.html')
+
+@app.route('/post2landmarks68p', methods=['POST'], strict_slashes=False)
+def post_landmarks68p():
+	f = request.files['photo1']
+	f.save("4.jpg")
+	with open("4.jpg", 'rb') as f7:
+		_byte1 = f7.read()
+	image_str1 = base64.b64encode(_byte1)
+	
+	url = 'http://localhost:65530/api/face/landmarks68p/'
+	body = {"image_base64": image_str1} 
+	rt = requests.post(url, data=body)
+	
+	jsonData = json.loads(rt.text)
+	if jsonData.get("ok")==False:
+		return rt.text
+	image = cv2.imread("4.jpg", cv2.IMREAD_COLOR)
+	face_num = 0
+	rects = jsonData.get("face")
+	for (i, rect) in enumerate(rects):
+		face_num = face_num + 1
+
+		x=rect['x']
+		y=rect['y']
+		w=rect['width']
+		h=rect['height']
+
+		cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+		cv2.putText(image, "Face #{}".format(i + 1), (x - 10, y - 10),
+				cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+
+		shape = rect["face_shape_list"]
+		for point in shape:
+			cv2.circle(image, (point["x"], point["y"]), 2, (0, 0, 255), -1)
+
+	cv2.imwrite("static\\4.jpg", image)
+	with open("static\\4.jpg", 'rb') as f7:
+		_byte1 = f7.read()
+
+	imgb64 = str(base64.b64encode(_byte1))
+	imgb64 = imgb64[2:len(imgb64) - 1]
+	newHTML = '<img src="data:image/png;base64,{}"/>'.format(imgb64)
+	f7 = open("templates\\a.html", "w")
+	f7.write(newHTML)
+	f7.close()
+	return render_template('a.html')
+
 
 @app.route('/post2detect', methods=['POST'], strict_slashes=False)
 def post_detect():
@@ -43,6 +98,9 @@ def post_detect():
 	url = 'http://localhost:65530/api/face/detect/'
 	body = {"image_base64": image_str1} 
 	rt = requests.post(url, data=body)
+	
+	# return (rt.text)
+
 	print(rt.text)
 	jsonData = json.loads(rt.text)
 	if jsonData.get("ok")==False:
@@ -62,8 +120,17 @@ def post_detect():
 
 		cv2.putText(image, "Face #{}".format(i + 1), (x - 10, y - 10),
 				cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-	cv2.imwrite("templates\\3.jpg", image)
-	return render_template('detectSuccess.html')
+	cv2.imwrite("static\\3.jpg", image)
+	with open("static\\3.jpg", 'rb') as f7:
+		_byte1 = f7.read()
+
+	imgb64 = str(base64.b64encode(_byte1))
+	imgb64 = imgb64[2:len(imgb64) - 1]
+	newHTML = '<img src="data:image/png;base64,{}"/>'.format(imgb64)
+	f7 = open("templates\\a.html", "w")
+	f7.write(newHTML)
+	f7.close()
+	return render_template('a.html')
 
 
 @app.route('/post2distance', methods=['POST'], strict_slashes=False)
